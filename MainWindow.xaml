@@ -21,16 +21,20 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Content="Battleships!" Grid.Row ="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF11FAD9" FontSize="36" FontWeight="Bold" FontFamily="Bernard MT Condensed" Background="{x:Null}"/>
-        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0" Background="#FF0BAE1A" Margin="10,0,10,0">
-            <Label Content="Your Board" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Foreground="#FFFAF8F8" FontWeight="Bold" FontSize="36"/>
+        <Label Content="Battleships!" Grid.Row ="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF11FAD9" FontSize="24" FontWeight="Bold" FontFamily="Bernard MT Condensed" Background="{x:Null}"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="0" Background="#FF0BAE1A" Margin="10,0,10,0" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Label Content="Your Board" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" Foreground="#FFFAF8F8" FontWeight="Bold" FontSize="22" VerticalAlignment="Top"/>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1" Background="#FFA10F0A" Margin="10,0,10,0">
-            <Label Content="Opponent's Board" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Foreground="#FFFAF8F8" FontWeight="Bold" FontSize="36"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Row="1" Grid.Column="1" Background="#FFA10F0A" Margin="10,0,10,0"  Height="40" VerticalAlignment="Top">
+            <Label Content="Opponent's Board" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Foreground="#FFFAF8F8" FontWeight="Bold" FontSize="22" VerticalAlignment="Top"/>
         </Border>
 
-        <UniformGrid x:Name="userBoard" Columns="9" Rows="9" Grid.Row="2" Grid.Column="0">
+        <UniformGrid x:Name="userBoard" Columns="10" Rows="10" Grid.Row="2" Grid.Column="0" Width="420" Height="350">
             
+        </UniformGrid>
+
+        <UniformGrid x:Name="opponentBoard" Columns="10" Rows="10" Grid.Row="2" Grid.Column="1" Width="420" Height="350">
+
         </UniformGrid>
     </Grid>
 </Window>

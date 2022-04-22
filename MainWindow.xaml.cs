@@ -28,7 +28,11 @@ namespace Battleships
             for(int i = 0; i<100; i++)
             {
                 Button btn = new Button();
+                Button btnn = new Button();
+                btn.Opacity = 0.7;
+                btnn.Opacity = 0.7;
                 userBoard.Children.Add(btn);
+                opponentBoard.Children.Add(btnn);
             }
         }
     }
