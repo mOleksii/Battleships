@@ -21,18 +21,116 @@ namespace Battleships
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<Button> userShips = new List<Button>();
+        List<Button> opponentShips = new List<Button>();
+        Random rng = new Random();
+
         public MainWindow()
         {
             InitializeComponent();
 
-            for(int i = 0; i<100; i++)
+            CreateBoards();
+        }
+
+        private void OpponentButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void CreateBoards()
+        {
+            for (int i = 0; i < 100; i++)
             {
-                Button btn = new Button();
-                Button btnn = new Button();
-                btn.Opacity = 0.7;
-                btnn.Opacity = 0.7;
-                userBoard.Children.Add(btn);
-                opponentBoard.Children.Add(btnn);
+                Button userButton = new Button();
+                Button opponentButton = new Button();
+                userButton.Opacity = 0.7;
+                opponentButton.Opacity = 0.7;
+                opponentButton.Click += OpponentButton_Click;
+
+                userShips.Add(userButton);
+                userBoard.Children.Add(userButton);
+
+                opponentShips.Add(opponentButton);
+                opponentBoard.Children.Add(opponentButton);
+            }
+
+            InitializeShips();
+        }
+
+        private void InitializeShips()
+        {
+            bool goodIndex = true;
+            int random_index;
+            //Carrier ships - 5 cells
+            do
+            {
+                random_index = rng.Next(0, userShips.Count);
+
+                if (random_index % 10 == 5 || random_index % 10 == 6 || random_index % 10 == 7 || random_index % 10 == 8 || random_index % 10 == 9)
+                    goodIndex = false;
+                else
+                    goodIndex = true;
+
+            } while (!goodIndex);
+
+            for (int i = 0; i < 5; i++)
+            {
+                userShips[random_index].Content = "*****";
+                userShips.RemoveAt(random_index);
+            }
+
+            do
+            {
+                random_index = rng.Next(0, userShips.Count);
+
+                if(random_index % 10 == 6 || random_index % 10 == 7 || random_index % 10 == 8 || random_index % 10 == 9)
+                    goodIndex=false;
+                else
+                    goodIndex=true;
+
+            } while (!goodIndex);
+
+            for(int i = 0; i < 4; i++)
+            {
+                userShips[random_index].Content = "****";
+                userShips.RemoveAt(random_index);
+            }
+
+            for(int i = 0; i <2; i ++)
+            {
+                do
+                {
+                    random_index = rng.Next(0, userShips.Count);
+
+                    if (random_index % 10 == 7 || random_index % 10 == 8 || random_index % 10 == 9)
+                        goodIndex = false;
+                    else
+                        goodIndex = true;
+
+                } while (!goodIndex);
+
+                for(int j = 0; j < 3; j++)
+                {
+                    userShips[random_index].Content = "***";
+                    userShips.RemoveAt(random_index);
+                }
+            }
+
+            do
+            {
+                random_index = rng.Next(0,userShips.Count);
+
+                if (random_index % 10 == 8 || random_index % 10 == 9)
+                    goodIndex = false;
+                else
+                    goodIndex = true;
+
+            }while(!goodIndex);
+
+            for(int i = 0; i < 2; i++)
+            {
+                userShips[random_index].Content = "***";
+                userShips.RemoveAt(random_index);
             }
         }
     }
