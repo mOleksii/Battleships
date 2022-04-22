@@ -25,6 +25,8 @@ namespace Battleships
         List<Button> opponentShips = new List<Button>();
         Random rng = new Random();
         const int TOTAL_AMOUNT_CELLS = 100;
+        int ship_size = 5;
+        int size_counter = 0, repeatingShipCounter = 0;
 
         public MainWindow()
         {
@@ -69,7 +71,57 @@ namespace Battleships
             {
                 if(userButton == (Button)sender)
                 {
-                    userButton.Content = "*****";
+                    if (ship_size == 5)
+                    {
+                        userButton.Content = "*****";
+                        userButton.IsEnabled = false;
+                        size_counter++;
+
+                        if(size_counter == ship_size)
+                        {
+                            ship_size = 4;
+                            size_counter = 0;
+                        }    
+                    }
+                    else if (ship_size == 4)
+                    {
+                        userButton.Content = "****";
+                        userButton.IsEnabled = false;
+                        size_counter++;
+
+                        if (size_counter == ship_size)
+                        {
+                            ship_size = 3;
+                            size_counter = 0;
+                        }
+                    }
+                    else if (ship_size == 3)
+                    {
+                        userButton.Content = "***";
+                        userButton.IsEnabled = false;
+                        size_counter++;
+
+                        if (size_counter == ship_size)
+                        {
+                            repeatingShipCounter++;
+                            size_counter = 0;
+
+                            if(repeatingShipCounter == 2)
+                                ship_size = 2;
+                        }
+                    }
+                    else if (ship_size == 2)
+                    {
+                        userButton.Content = "**";
+                        userButton.IsEnabled = false;
+                        size_counter++;
+
+                        if(size_counter == ship_size)
+                        {
+                            foreach(Button currentBtn in userBoard.Children)
+                                currentBtn.IsEnabled = false;
+                        }
+                    }
                 }
             }
         }
