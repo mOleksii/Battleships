@@ -24,6 +24,7 @@ namespace Battleships
         List<Button> userShips = new List<Button>();
         List<Button> opponentShips = new List<Button>();
         Random rng = new Random();
+        const int TOTAL_AMOUNT_CELLS = 100;
 
         public MainWindow()
         {
@@ -39,13 +40,18 @@ namespace Battleships
 
         private void CreateBoards()
         {
+            Button test = new Button();
+            userShips.Add(test);
+
             for (int i = 0; i < 100; i++)
             {
                 Button userButton = new Button();
                 Button opponentButton = new Button();
                 userButton.Opacity = 0.7;
                 opponentButton.Opacity = 0.7;
+
                 opponentButton.Click += OpponentButton_Click;
+                userButton.Click += UserButton_Click;
 
                 userShips.Add(userButton);
                 userBoard.Children.Add(userButton);
@@ -57,6 +63,17 @@ namespace Battleships
             InitializeShips();
         }
 
+        private void UserButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach(Button userButton in userBoard.Children)
+            {
+                if(userButton == (Button)sender)
+                {
+                    userButton.Content = "*****";
+                }
+            }
+        }
+
         private void InitializeShips()
         {
             bool goodIndex = true;
@@ -64,9 +81,9 @@ namespace Battleships
             //Carrier ships - 5 cells
             do
             {
-                random_index = rng.Next(0, userShips.Count);
+                random_index = rng.Next(1, userShips.Count);
 
-                if (random_index % 10 == 5 || random_index % 10 == 6 || random_index % 10 == 7 || random_index % 10 == 8 || random_index % 10 == 9)
+                if (random_index % 10 == 5 || random_index % 10 == 6 || random_index % 10 == 7 || random_index % 10 == 8 || random_index % 10 == 9 || random_index % 10 == 0)
                     goodIndex = false;
                 else
                     goodIndex = true;
@@ -81,9 +98,9 @@ namespace Battleships
 
             do
             {
-                random_index = rng.Next(0, userShips.Count);
+                random_index = rng.Next(1, userShips.Count);
 
-                if(random_index % 10 == 6 || random_index % 10 == 7 || random_index % 10 == 8 || random_index % 10 == 9)
+                if(random_index % 10 == 6 || random_index % 10 == 7 || random_index % 10 == 8 || random_index % 10 == 9 || random_index % 10 == 0)
                     goodIndex=false;
                 else
                     goodIndex=true;
@@ -100,9 +117,9 @@ namespace Battleships
             {
                 do
                 {
-                    random_index = rng.Next(0, userShips.Count);
+                    random_index = rng.Next(1, userShips.Count);
 
-                    if (random_index % 10 == 7 || random_index % 10 == 8 || random_index % 10 == 9)
+                    if (random_index % 10 == 7 || random_index % 10 == 8 || random_index % 10 == 9 || random_index % 10 == 0)
                         goodIndex = false;
                     else
                         goodIndex = true;
@@ -118,7 +135,7 @@ namespace Battleships
 
             do
             {
-                random_index = rng.Next(0,userShips.Count);
+                random_index = rng.Next(1, userShips.Count);
 
                 if (random_index % 10 == 8 || random_index % 10 == 9)
                     goodIndex = false;
@@ -129,7 +146,7 @@ namespace Battleships
 
             for(int i = 0; i < 2; i++)
             {
-                userShips[random_index].Content = "***";
+                userShips[random_index].Content = "**";
                 userShips.RemoveAt(random_index);
             }
         }
