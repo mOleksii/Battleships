@@ -37,7 +37,23 @@ namespace Battleships
 
         private void OpponentButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            foreach(Button currentButton in opponentBoard.Children)
+            {
+                if(currentButton == (Button)sender)
+                {
+                    if(currentButton.Tag == "Ship")
+                    {
+                        currentButton.Content = "X";
+                        currentButton.Background = Brushes.Red;
+                        currentButton.Foreground = Brushes.White;
+                    }
+                    else
+                    {
+                        currentButton.Content = ".";
+                        currentButton.Background = Brushes.White;
+                    }
+                }
+            }
         }
 
         private void CreateBoards()
@@ -144,8 +160,11 @@ namespace Battleships
 
             for (int i = 0; i < 5; i++)
             {
-                userShips[random_index].Content = "*****";
+                /*userShips[random_index].Content = "*****";
                 userShips.RemoveAt(random_index);
+                */
+                opponentShips[random_index].Tag = "Ship";
+                opponentShips.RemoveAt(random_index);
             }
 
             do
@@ -161,8 +180,11 @@ namespace Battleships
 
             for(int i = 0; i < 4; i++)
             {
-                userShips[random_index].Content = "****";
-                userShips.RemoveAt(random_index);
+                /*userShips[random_index].Content = "*****";
+                 userShips.RemoveAt(random_index);
+                */
+                opponentShips[random_index].Tag = "Ship";
+                opponentShips.RemoveAt(random_index);
             }
 
             for(int i = 0; i <2; i ++)
@@ -180,8 +202,11 @@ namespace Battleships
 
                 for(int j = 0; j < 3; j++)
                 {
-                    userShips[random_index].Content = "***";
-                    userShips.RemoveAt(random_index);
+                    /*userShips[random_index].Content = "*****";
+                     userShips.RemoveAt(random_index);
+                    */
+                    opponentShips[random_index].Tag = "Ship";
+                    opponentShips.RemoveAt(random_index);
                 }
             }
 
@@ -198,8 +223,11 @@ namespace Battleships
 
             for(int i = 0; i < 2; i++)
             {
-                userShips[random_index].Content = "**";
-                userShips.RemoveAt(random_index);
+                /*userShips[random_index].Content = "*****";
+                 userShips.RemoveAt(random_index);
+                */
+                opponentShips[random_index].Tag = "Ship";
+                opponentShips.RemoveAt(random_index);
             }
         }
     }
