@@ -65,6 +65,8 @@ namespace Battleships
             {
                 Button userButton = new Button();
                 Button opponentButton = new Button();
+                opponentButton.IsEnabled = false;
+
                 userButton.Opacity = 0.7;
                 opponentButton.Opacity = 0.7;
 
@@ -78,7 +80,9 @@ namespace Battleships
                 opponentBoard.Children.Add(opponentButton);
             }
 
-            InitializeShips();
+            InitializeOpponentShips();
+            MessageBox.Show("Place your 5* ship on your board!","Place your ships!",MessageBoxButton.OK,MessageBoxImage.Information);
+
         }
 
         private void UserButton_Click(object sender, RoutedEventArgs e)
@@ -97,6 +101,7 @@ namespace Battleships
                         {
                             ship_size = 4;
                             size_counter = 0;
+                            MessageBox.Show("Place your 4* ship on your board!", "Place your ships!", MessageBoxButton.OK, MessageBoxImage.Information);
                         }    
                     }
                     else if (ship_size == 4)
@@ -109,6 +114,7 @@ namespace Battleships
                         {
                             ship_size = 3;
                             size_counter = 0;
+                            MessageBox.Show("Place your 3* ship (x2) on your board!", "Place your ships!", MessageBoxButton.OK, MessageBoxImage.Information);
                         }
                     }
                     else if (ship_size == 3)
@@ -122,8 +128,11 @@ namespace Battleships
                             repeatingShipCounter++;
                             size_counter = 0;
 
-                            if(repeatingShipCounter == 2)
+                            if (repeatingShipCounter == 2)
+                            {
                                 ship_size = 2;
+                                MessageBox.Show("Place your 2* ship on your board!", "Place your ships!", MessageBoxButton.OK, MessageBoxImage.Information);
+                            }
                         }
                     }
                     else if (ship_size == 2)
@@ -136,13 +145,18 @@ namespace Battleships
                         {
                             foreach(Button currentBtn in userBoard.Children)
                                 currentBtn.IsEnabled = false;
+
+                            foreach (Button opponentButton in opponentBoard.Children)
+                                opponentButton.IsEnabled = true;
+                            MessageBox.Show("You are ready to start attacking the opponent's ships! Press any cell on the opponents board to fire your cannons!", "GAME STARTING!", MessageBoxButton.OK);
+
                         }
                     }
                 }
             }
         }
 
-        private void InitializeShips()
+        private void InitializeOpponentShips()
         {
             bool goodIndex = true;
             int random_index;
