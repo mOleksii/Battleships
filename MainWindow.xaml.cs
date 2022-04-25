@@ -39,21 +39,58 @@ namespace Battleships
         {
             foreach(Button currentButton in opponentBoard.Children)
             {
-                if(currentButton == (Button)sender)
+                if (currentButton == (Button)sender && currentButton.IsEnabled == true)
                 {
                     if(currentButton.Tag == "Ship")
                     {
                         currentButton.Content = "X";
-                        currentButton.Background = Brushes.Red;
+                        currentButton.Background = Brushes.DarkRed;
                         currentButton.Foreground = Brushes.White;
+                        //currentButton.IsEnabled = false;
+                        currentButton.IsHitTestVisible = false;
+                        //currentButton.Tag = "Shot";
                     }
                     else
                     {
                         currentButton.Content = ".";
                         currentButton.Background = Brushes.White;
+                        //currentButton.IsEnabled = false;
+                        currentButton.IsHitTestVisible = false;
                     }
                 }
             }
+
+            bool shotOnce = true;
+
+            do
+            {
+                int rnd_index = rng.Next(userShips.Count - 1);
+
+                if (userShips[rnd_index].Tag == "Ship")
+                {
+                    userShips[rnd_index].Content = "X";
+                    userShips[rnd_index].Background = Brushes.DarkRed;
+                    userShips[rnd_index].Foreground = Brushes.White;
+                    //userShips[rnd_index].IsEnabled = false;
+                    userShips[rnd_index].IsHitTestVisible = false;
+                    userShips[rnd_index].Tag = "Shot";
+                    userShips.RemoveAt(rnd_index);
+                    shotOnce = true;
+                }
+                else if (userShips[rnd_index].Tag != "Ship" && userShips[rnd_index].Tag != "Shot")
+                {
+                    userShips[rnd_index].Content = ".";
+                    userShips[rnd_index].Background = Brushes.White;
+                    //userShips[rnd_index].IsEnabled = false;
+                    userShips[rnd_index].IsHitTestVisible = false;
+                    userShips[rnd_index].Tag = "Shot";
+                    userShips.RemoveAt(rnd_index);
+                    shotOnce = true;
+                }
+                else
+                    shotOnce = false;
+
+            } while (!shotOnce);
         }
 
         private void CreateBoards()
@@ -67,8 +104,8 @@ namespace Battleships
                 Button opponentButton = new Button();
                 opponentButton.IsEnabled = false;
 
-                userButton.Opacity = 0.7;
-                opponentButton.Opacity = 0.7;
+                userButton.Opacity = 0.9;
+                opponentButton.Opacity = 0.9;
 
                 opponentButton.Click += OpponentButton_Click;
                 userButton.Click += UserButton_Click;
@@ -95,6 +132,7 @@ namespace Battleships
                     {
                         userButton.Content = "*****";
                         userButton.IsEnabled = false;
+                        userButton.Tag = "Ship";
                         size_counter++;
 
                         if(size_counter == ship_size)
@@ -108,6 +146,7 @@ namespace Battleships
                     {
                         userButton.Content = "****";
                         userButton.IsEnabled = false;
+                        userButton.Tag = "Ship";
                         size_counter++;
 
                         if (size_counter == ship_size)
@@ -121,6 +160,7 @@ namespace Battleships
                     {
                         userButton.Content = "***";
                         userButton.IsEnabled = false;
+                        userButton.Tag = "Ship";
                         size_counter++;
 
                         if (size_counter == ship_size)
@@ -139,17 +179,21 @@ namespace Battleships
                     {
                         userButton.Content = "**";
                         userButton.IsEnabled = false;
+                        userButton.Tag = "Ship";
                         size_counter++;
 
                         if(size_counter == ship_size)
                         {
-                            foreach(Button currentBtn in userBoard.Children)
-                                currentBtn.IsEnabled = false;
+                            foreach (Button currentBtn in userBoard.Children)
+                            {
+                                currentBtn.IsEnabled = true;
+                                currentBtn.IsHitTestVisible = false;
+                            }
 
                             foreach (Button opponentButton in opponentBoard.Children)
                                 opponentButton.IsEnabled = true;
-                            MessageBox.Show("You are ready to start attacking the opponent's ships! Press any cell on the opponents board to fire your cannons!", "GAME STARTING!", MessageBoxButton.OK);
 
+                            MessageBox.Show("You are ready to start attacking the opponent's ships! Press any cell on the opponents board to fire your cannons!", "GAME STARTING!", MessageBoxButton.OK);
                         }
                     }
                 }
