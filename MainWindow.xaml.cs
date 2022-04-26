@@ -25,8 +25,9 @@ namespace Battleships
         List<Button> opponentShips = new List<Button>();
         Random rng = new Random();
         const int TOTAL_AMOUNT_CELLS = 100;
+        const int TOTAL_SHIP_CELLS = 17;
         int ship_size = 5;
-        int size_counter = 0, repeatingShipCounter = 0;
+        int size_counter = 0, repeatingShipCounter = 0, userHitCounter = 0, opponentHitCounter = 0;
 
         public MainWindow()
         {
@@ -46,15 +47,13 @@ namespace Battleships
                         currentButton.Content = "X";
                         currentButton.Background = Brushes.DarkRed;
                         currentButton.Foreground = Brushes.White;
-                        //currentButton.IsEnabled = false;
                         currentButton.IsHitTestVisible = false;
-                        //currentButton.Tag = "Shot";
+                        userHitCounter++;
                     }
                     else
                     {
                         currentButton.Content = ".";
                         currentButton.Background = Brushes.White;
-                        //currentButton.IsEnabled = false;
                         currentButton.IsHitTestVisible = false;
                     }
                 }
@@ -71,17 +70,16 @@ namespace Battleships
                     userShips[rnd_index].Content = "X";
                     userShips[rnd_index].Background = Brushes.DarkRed;
                     userShips[rnd_index].Foreground = Brushes.White;
-                    //userShips[rnd_index].IsEnabled = false;
                     userShips[rnd_index].IsHitTestVisible = false;
                     userShips[rnd_index].Tag = "Shot";
                     userShips.RemoveAt(rnd_index);
+                    opponentHitCounter++;
                     shotOnce = true;
                 }
                 else if (userShips[rnd_index].Tag != "Ship" && userShips[rnd_index].Tag != "Shot")
                 {
                     userShips[rnd_index].Content = ".";
                     userShips[rnd_index].Background = Brushes.White;
-                    //userShips[rnd_index].IsEnabled = false;
                     userShips[rnd_index].IsHitTestVisible = false;
                     userShips[rnd_index].Tag = "Shot";
                     userShips.RemoveAt(rnd_index);
@@ -91,6 +89,11 @@ namespace Battleships
                     shotOnce = false;
 
             } while (!shotOnce);
+
+            if (opponentHitCounter == TOTAL_SHIP_CELLS)
+                MessageBox.Show("YOU LOST! AI HAS WON!", "DEFEAT", MessageBoxButton.OK, MessageBoxImage.Hand);
+            else if(userHitCounter == TOTAL_SHIP_CELLS)
+                MessageBox.Show("YOU WON!!!", "VICTORYY!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
         private void CreateBoards()
@@ -218,9 +221,6 @@ namespace Battleships
 
             for (int i = 0; i < 5; i++)
             {
-                /*userShips[random_index].Content = "*****";
-                userShips.RemoveAt(random_index);
-                */
                 opponentShips[random_index].Tag = "Ship";
                 opponentShips.RemoveAt(random_index);
             }
@@ -238,9 +238,6 @@ namespace Battleships
 
             for(int i = 0; i < 4; i++)
             {
-                /*userShips[random_index].Content = "*****";
-                 userShips.RemoveAt(random_index);
-                */
                 opponentShips[random_index].Tag = "Ship";
                 opponentShips.RemoveAt(random_index);
             }
@@ -260,9 +257,6 @@ namespace Battleships
 
                 for(int j = 0; j < 3; j++)
                 {
-                    /*userShips[random_index].Content = "*****";
-                     userShips.RemoveAt(random_index);
-                    */
                     opponentShips[random_index].Tag = "Ship";
                     opponentShips.RemoveAt(random_index);
                 }
@@ -281,9 +275,6 @@ namespace Battleships
 
             for(int i = 0; i < 2; i++)
             {
-                /*userShips[random_index].Content = "*****";
-                 userShips.RemoveAt(random_index);
-                */
                 opponentShips[random_index].Tag = "Ship";
                 opponentShips.RemoveAt(random_index);
             }
